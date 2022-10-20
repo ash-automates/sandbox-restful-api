@@ -1,0 +1,27 @@
+{
+  "name": "sandbox-restful-api",
+  "version": "1.0.0",
+  "description": "a \"dummy\" books listing API, made to practice mongoDB, node.js, and building a RESTful API!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ash-automates/sandbox-restful-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ash-automates/sandbox-restful-api/issues"
+  },
+  "homepage": "https://github.com/ash-automates/sandbox-restful-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongodb": "^4.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}

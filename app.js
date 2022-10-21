@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const { connectToDB, getDB } = require("./db");
 require("dotenv").config();
 
@@ -29,4 +30,25 @@ app.get("/books", (req, res) => {
     .catch(() => {
       res.status(500).json({ error: "Could not fetch the documents" });
     });
+});
+
+app.get("/books/:id", (req, res) => {
+  const id = req.params.id;
+  if (ObjectId.isValid(id)) {
+    database
+      .collection("books")
+      .findOne({ _id: ObjectId(id) })
+      .then((book) => {
+        if (book === null) {
+          res.status(500).json({ error: "Please enter a valid id" });
+        } else {
+          res.status(200).json(book);
+        }
+      })
+      .catch(() => {
+        res.status(500).json({ error: "Could not fetch the document" });
+      });
+  } else {
+    res.status(500).json({ error: "Please enter a valid id" });
+  }
 });

@@ -86,3 +86,24 @@ app.post("/books", (req, res) => {
       res.status(500).json({ error: "Could not create the document" });
     });
 });
+
+app.patch("/books/:id", (req, res) => {
+  const id = req.params.id;
+  if (ObjectId.isValid(id)) {
+    database
+      .collection("books")
+      .updateOne({ _id: ObjectId(id) }, { $set: req.body })
+      .then((result) => {
+        if (result.matchedCount === 0) {
+          res.status(500).json({ error: "Could not find the document" });
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .catch(() => {
+        res.status(500).json({ error: "Could not update the document" });
+      });
+  } else {
+    res.status(500).json({ error: "Please enter a valid id" });
+  }
+});

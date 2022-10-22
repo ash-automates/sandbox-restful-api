@@ -73,6 +73,7 @@ app.delete("/books/:id", (req, res) => {
   } else {
     res.status(500).json({ error: "Please enter a valid id" });
   }
+});
 
 app.post("/books", (req, res) => {
   database

@@ -18,10 +18,14 @@ connectToDB((error) => {
 
 app.get("/books", (req, res) => {
   let books = [];
+  const page = req.query.page || 0;
+  const documentsPerPage = 3;
   database
     .collection("books")
     .find()
     .sort({ author: 1 })
+    .skip(page * documentsPerPage)
+    .limit(documentsPerPage)
     .forEach((book) => {
       books.push(book);
     })

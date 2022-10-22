@@ -54,6 +54,26 @@ app.get("/books/:id", (req, res) => {
   }
 });
 
+app.delete("/books/:id", (req, res) => {
+  const id = req.params.id;
+  if (ObjectId.isValid(id)) {
+    database
+      .collection("books")
+      .deleteOne({ _id: ObjectId(id) })
+      .then((result) => {
+        if (result.deletedCount === 0) {
+          res.status(500).json({ error: "Could not find the document" });
+        } else {
+          res.status(200).json(result);
+        }
+      })
+      .catch(() => {
+        res.status(500).json({ error: "Could not delete the document" });
+      });
+  } else {
+    res.status(500).json({ error: "Please enter a valid id" });
+  }
+
 app.post("/books", (req, res) => {
   database
     .collection("books")

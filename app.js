@@ -4,6 +4,7 @@ const { connectToDB, getDB } = require("./db");
 require("dotenv").config();
 
 const app = express();
+app.use(express.json());
 
 let database;
 connectToDB((error) => {
@@ -72,4 +73,15 @@ app.delete("/books/:id", (req, res) => {
   } else {
     res.status(500).json({ error: "Please enter a valid id" });
   }
+
+app.post("/books", (req, res) => {
+  database
+    .collection("books")
+    .insertOne(req.body)
+    .then((result) => {
+      res.status(201).json(result);
+    })
+    .catch(() => {
+      res.status(500).json({ error: "Could not create the document" });
+    });
 });
